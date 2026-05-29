@@ -11,18 +11,15 @@ class TareaController extends Controller
     // GET: http://localhost:8000/api/tareas
     public function index()
     {
-        // Trae todas las tareas con información de su tipo de tarea relacionado
+        // Trae todas las tareas disponibles
         $tareas = DB::table('tareas_tickets')
-            ->join('tipo_tareas', 'tipo_tareas.id_tipo_tarea', '=', 'tareas_tickets.tipo_tarea_id_tipo_tarea')
             ->select(
                 'tareas_tickets.id_tarea',
                 'tareas_tickets.nombre_tarea',
                 'tareas_tickets.tipo_tarea_id_tipo_tarea',
                 'tareas_tickets.prioridad',
                 'tareas_tickets.estado',
-                'tareas_tickets.estimacion',
-                'tipo_tareas.id_tipo_tarea',
-                'tipo_tareas.nombre_tipo_tarea'
+                'tareas_tickets.estimacion'
             )
             ->get();
 
@@ -33,7 +30,6 @@ class TareaController extends Controller
     public function show(string $id)
     {
         $tarea = DB::table('tareas_tickets')
-            ->join('tipo_tareas', 'tipo_tareas.id_tipo_tarea', '=', 'tareas_tickets.tipo_tarea_id_tipo_tarea')
             ->where('tareas_tickets.id_tarea', $id)
             ->select(
                 'tareas_tickets.id_tarea',
@@ -41,9 +37,7 @@ class TareaController extends Controller
                 'tareas_tickets.tipo_tarea_id_tipo_tarea',
                 'tareas_tickets.prioridad',
                 'tareas_tickets.estado',
-                'tareas_tickets.estimacion',
-                'tipo_tareas.id_tipo_tarea',
-                'tipo_tareas.nombre_tipo_tarea'
+                'tareas_tickets.estimacion'
             )
             ->first();
 

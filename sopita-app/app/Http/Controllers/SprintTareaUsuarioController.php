@@ -11,24 +11,11 @@ class SprintTareaUsuarioController extends Controller
     public function index()
     {
         $asignaciones = DB::table('sprints_has_tareas_tickets_has_usuarios')
-            ->join('sprints_has_tareas_tickets', 'sprints_has_tareas_tickets.Sprints_id_sprint', '=', 'sprints_has_tareas_tickets_has_usuarios.sprints_has_tareas_tickets_Sprints_id_sprint')
-            ->join('sprints', 'sprints.id_sprint', '=', 'sprints_has_tareas_tickets.Sprints_id_sprint')
-            ->join('tareas_tickets', 'tareas_tickets.id_tarea', '=', 'sprints_has_tareas_tickets_has_usuarios.sprints_has_tareas_tickets_Tareas_Tickets_id_tarea')
-            ->join('usuarios', 'usuarios.id_usuario', '=', 'sprints_has_tareas_tickets_has_usuarios.usuarios_id_usuario')
+            ->leftJoin('usuarios', 'usuarios.id_usuario', '=', 'sprints_has_tareas_tickets_has_usuarios.usuarios_id_usuario')
             ->select(
                 'sprints_has_tareas_tickets_has_usuarios.sprints_has_tareas_tickets_Sprints_id_sprint',
                 'sprints_has_tareas_tickets_has_usuarios.sprints_has_tareas_tickets_Tareas_Tickets_id_tarea',
                 'sprints_has_tareas_tickets_has_usuarios.usuarios_id_usuario',
-                'sprints.id_sprint',
-                'sprints.nombre_sprint',
-                'sprints.fecha_sprint',
-                'sprints.semana_sprint',
-                'tareas_tickets.id_tarea',
-                'tareas_tickets.nombre_tarea',
-                'tareas_tickets.prioridad',
-                'tareas_tickets.estado',
-                'tareas_tickets.estimacion',
-                'usuarios.id_usuario',
                 'usuarios.nombre',
                 'usuarios.apellido',
                 'usuarios.correo'

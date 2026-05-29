@@ -11,17 +11,9 @@ class SprintProyectoController extends Controller
     public function index()
     {
         $relaciones = DB::table('sprints_has_proyectos')
-            ->join('sprints', 'sprints.id_sprint', '=', 'sprints_has_proyectos.sprints_id_sprint')
-            ->join('proyectos', 'proyectos.id_proyecto', '=', 'sprints_has_proyectos.proyectos_id_proyecto')
             ->select(
                 'sprints_has_proyectos.sprints_id_sprint',
-                'sprints_has_proyectos.proyectos_id_proyecto',
-                'sprints.id_sprint',
-                'sprints.nombre_sprint',
-                'sprints.fecha_sprint',
-                'sprints.semana_sprint',
-                'proyectos.id_proyecto',
-                'proyectos.nombre_proyecto'
+                'sprints_has_proyectos.proyectos_id_proyecto'
             )
             ->get();
         return response()->json($relaciones, 200);
@@ -31,19 +23,11 @@ class SprintProyectoController extends Controller
     public function show(string $sprint_id, string $proyecto_id)
     {
         $relacion = DB::table('sprints_has_proyectos')
-            ->join('sprints', 'sprints.id_sprint', '=', 'sprints_has_proyectos.sprints_id_sprint')
-            ->join('proyectos', 'proyectos.id_proyecto', '=', 'sprints_has_proyectos.proyectos_id_proyecto')
             ->where('sprints_has_proyectos.sprints_id_sprint', $sprint_id)
             ->where('sprints_has_proyectos.proyectos_id_proyecto', $proyecto_id)
             ->select(
                 'sprints_has_proyectos.sprints_id_sprint',
-                'sprints_has_proyectos.proyectos_id_proyecto',
-                'sprints.id_sprint',
-                'sprints.nombre_sprint',
-                'sprints.fecha_sprint',
-                'sprints.semana_sprint',
-                'proyectos.id_proyecto',
-                'proyectos.nombre_proyecto'
+                'sprints_has_proyectos.proyectos_id_proyecto'
             )
             ->first();
 
